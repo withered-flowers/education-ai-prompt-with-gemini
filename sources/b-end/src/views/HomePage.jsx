@@ -5,6 +5,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { promptToGemini } from "@/features/gemini-slice";
 import { useDispatch, useSelector } from "react-redux";
 
+import {
+	AlertDialog,
+	AlertDialogAction,
+	AlertDialogContent,
+	AlertDialogDescription,
+	AlertDialogFooter,
+	AlertDialogHeader,
+	AlertDialogTitle,
+	AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { GITHUB_REPO } from "@/constants";
+
 import { Skeleton } from "@/components/ui/skeleton";
 import { useForm } from "react-hook-form";
 
@@ -29,8 +41,34 @@ const HomePage = () => {
 	};
 
 	return (
-		<section className="p-4 flex flex-col gap-4">
-			<h1 className="text-3xl font-semibold">Home Page</h1>
+		<main className="p-4 flex flex-col gap-4">
+			<nav className="flex items-center justify-between">
+				<h1 className="text-3xl font-semibold">Home Page</h1>
+				<AlertDialog>
+					<AlertDialogTrigger asChild>
+						<Button variant="outline">About</Button>
+					</AlertDialogTrigger>
+					<AlertDialogContent>
+						<AlertDialogHeader>
+							<AlertDialogTitle className="text-xl">
+								&copy; 2024 - Withered Flowers
+							</AlertDialogTitle>
+							<AlertDialogDescription className="text-lg">
+								To see the full code, See:&nbsp;
+								<a
+									href={GITHUB_REPO}
+									className="underline text-blue-400 hover:text-blue-400/80 transition-colors duration-300"
+								>
+									Github Repo
+								</a>
+							</AlertDialogDescription>
+						</AlertDialogHeader>
+						<AlertDialogFooter>
+							<AlertDialogAction>Close</AlertDialogAction>
+						</AlertDialogFooter>
+					</AlertDialogContent>
+				</AlertDialog>
+			</nav>
 			<form
 				className="flex flex-col gap-4 w-full md:w-1/2 mx-auto"
 				onSubmit={handleSubmit(handleSubmitToDispatchGemini)}
@@ -92,7 +130,7 @@ const HomePage = () => {
 					</section>
 				)
 			}
-		</section>
+		</main>
 	);
 };
 
